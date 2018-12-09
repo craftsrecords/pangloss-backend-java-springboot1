@@ -1,4 +1,4 @@
-package org.owasp.pangloss;
+package org.owasp.pangloss.infra;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
