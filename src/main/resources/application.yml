@@ -8,6 +8,7 @@ spring:
 
 spring:
   profiles: poc
-  security.user:
-    name: poc-user
-    password: poc-pwd
+
+security.user:
+  name: poc-user
+  password: poc-pwd
