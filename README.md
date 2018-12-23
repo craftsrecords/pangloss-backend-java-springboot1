@@ -4,3 +4,9 @@ OWASP Pangloss is a [OWASP TOP10 2017](https://www.owasp.org/index.php/Top_10-20
 
 The name is inspired by the Pangloss character of Voltaire's novella [Candide](https://en.wikipedia.org/wiki/Candide). 
 Pangloss is Candide's teacher, and follows a Leibnizian mantra: "all is for the best" in the "best of all possible worlds".
+
+## Building the backend
+`mvn clean install`
+
+## Live Coding tasks
+* Add authentication on endpoints
