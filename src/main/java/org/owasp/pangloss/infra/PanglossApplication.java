@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class PanglossApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(PanglossApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PanglossApplication.class, args);
+    }
 }
