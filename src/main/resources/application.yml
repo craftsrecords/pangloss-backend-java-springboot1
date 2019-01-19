@@ -1,8 +1,10 @@
 spring:
   profiles:
-    active: poc
+    active: insecure
   output:
     ansi.enabled: ALWAYS
+  datasource:
+    generate-unique-name: true
 
 ---
 #Never use poc profile in production guys !!!!

@@ -1,48 +1,31 @@
 package org.owasp.pangloss.infra.security.authenticationproviders;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.TestingAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import org.owasp.pangloss.infra.security.authenticationproviders.testtemplates.AuthenticationProviderTestContract;
+import org.owasp.pangloss.infra.security.authenticationproviders.testtemplates.AuthenticationProviderTestTemplate;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+public class PocAuthenticationProviderTest extends AuthenticationProviderTestTemplate implements AuthenticationProviderTestContract {
 
-public class PocAuthenticationProviderTest {
-
-    private final PocAuthenticationProvider pocAuthenticationProvider = new PocAuthenticationProvider();
-
+    @Before
+    public void setup() {
+        this.authenticationProvider = new PocAuthenticationProvider();
+        this.authorizedUsername = "poc-user";
+        this.authorizedPassword = "poc-pwd";
+    }
 
     @Test
-    public void should_authenticate_poc_user() {
-        //Given
-        String username = "poc-user";
-        String password = "poc-pwd";
-        Authentication authentication = new TestingAuthenticationToken(username, password);
-        //When
-        Authentication result = pocAuthenticationProvider.authenticate(authentication);
-        //Then
-        assertThat(result).isInstanceOf(UsernamePasswordAuthenticationToken.class);
-        assertThat(result.isAuthenticated()).isTrue();
-        assertThat(result.getName()).isEqualTo(username);
-        assertThat(result.getCredentials()).isEqualTo(password);
+    public void should_authenticate_user() {
+        super.should_authenticate_user();
     }
 
     @Test
     public void should_throw_BadCredentialsException_for_unrecognized_credentials() {
-        //Given
-        Authentication authentication = new TestingAuthenticationToken("qsd", "mpiohzer");
-        //Then
-        assertThatThrownBy(() -> pocAuthenticationProvider.authenticate(authentication))
-                .isInstanceOf(BadCredentialsException.class);
+        super.should_throw_BadCredentialsException_for_unrecognized_credentials();
     }
 
     @Test
     public void should_supports_UsernamePasswordAuthenticationToken() {
-        //When
-        boolean supports = pocAuthenticationProvider.supports(UsernamePasswordAuthenticationToken.class);
-        //Then
-        assertThat(supports).isTrue();
+        super.should_supports_UsernamePasswordAuthenticationToken();
     }
 }
