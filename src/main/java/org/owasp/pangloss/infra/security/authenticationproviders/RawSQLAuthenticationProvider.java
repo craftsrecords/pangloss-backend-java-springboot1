@@ -23,7 +23,7 @@ public class RawSQLAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         try {
             DBUser user = retrieveUser(authentication.getName(), authentication.getCredentials());
-            return new UsernamePasswordAuthenticationToken(user.username, user.password, null);
+            return new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), null);
         } catch (IncorrectResultSizeDataAccessException exception) {
             throw new BadCredentialsException("Unauthorized");
         }
@@ -32,7 +32,7 @@ public class RawSQLAuthenticationProvider implements AuthenticationProvider {
     private DBUser retrieveUser(String name, Object password) {
         return jdbcTemplate
                 .queryForObject(
-                        "Select * from USERS where username='" + name + "' and password='" + password + "'",
+                        "Select * from users where username='" + name + "' and password='" + password + "'",
                         BeanPropertyRowMapper.newInstance(DBUser.class));
     }
 
@@ -41,19 +41,4 @@ public class RawSQLAuthenticationProvider implements AuthenticationProvider {
         return UsernamePasswordAuthenticationToken.class.equals(authentication);
     }
 
-    /**
-     * We don't want to expose this class, it holds the password and is reserved for the authentication process
-     */
-    private static class DBUser {
-        String username;
-        String password;
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-    }
 }
