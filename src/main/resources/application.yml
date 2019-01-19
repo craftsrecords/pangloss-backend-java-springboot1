@@ -5,10 +5,6 @@ spring:
     ansi.enabled: ALWAYS
 
 ---
-
+#Never use poc profile in production guys !!!!
 spring:
   profiles: poc
-
-security.user:
-  name: poc-user
-  password: poc-pwd
