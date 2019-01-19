@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra.security;
+package org.owasp.pangloss.infra.security.authenticationproviders;
 
 import org.junit.Test;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -24,6 +24,7 @@ public class PocAuthenticationProviderTest {
         Authentication result = pocAuthenticationProvider.authenticate(authentication);
         //Then
         assertThat(result).isInstanceOf(UsernamePasswordAuthenticationToken.class);
+        assertThat(result.isAuthenticated()).isTrue();
         assertThat(result.getName()).isEqualTo(username);
         assertThat(result.getCredentials()).isEqualTo(password);
     }

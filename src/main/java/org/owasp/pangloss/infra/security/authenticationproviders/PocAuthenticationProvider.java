@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra.security;
+package org.owasp.pangloss.infra.security.authenticationproviders;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -34,6 +34,6 @@ public class PocAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+        return UsernamePasswordAuthenticationToken.class.equals(authentication);
     }
 }
