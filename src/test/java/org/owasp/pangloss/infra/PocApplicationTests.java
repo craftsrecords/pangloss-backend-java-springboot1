@@ -25,7 +25,7 @@ public class PocApplicationTests extends PanglossApplicationTestsTemplate implem
     }
 
     @Test
-    public void should_return_the_user_profile_when_successfully_logged() {
-        super.should_return_the_user_profile_when_successfully_logged();
+    public void should_log_the_user() {
+        super.should_log_the_user();
     }
 }

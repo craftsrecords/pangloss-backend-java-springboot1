@@ -1,9 +1,9 @@
-package org.owasp.pangloss.infra.security.authenticationproviders;
+package org.owasp.pangloss.infra.security.authentication.providers;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.owasp.pangloss.infra.security.authenticationproviders.testtemplates.AuthenticationProviderTestContract;
-import org.owasp.pangloss.infra.security.authenticationproviders.testtemplates.AuthenticationProviderTestTemplate;
+import org.owasp.pangloss.infra.security.authentication.providers.testtemplates.AuthenticationProviderTestContract;
+import org.owasp.pangloss.infra.security.authentication.providers.testtemplates.AuthenticationProviderTestTemplate;
 
 public class PocAuthenticationProviderTest extends AuthenticationProviderTestTemplate implements AuthenticationProviderTestContract {
 

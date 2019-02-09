@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra.security.authenticationproviders;
+package org.owasp.pangloss.infra.security.authentication.providers;
 
 /**
  * We don't want to expose this class, it holds the password and is reserved for the authentication process

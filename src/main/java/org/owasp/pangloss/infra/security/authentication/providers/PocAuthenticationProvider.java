@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra.security.authenticationproviders;
+package org.owasp.pangloss.infra.security.authentication.providers;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationProvider;

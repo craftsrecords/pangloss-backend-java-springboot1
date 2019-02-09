@@ -1,45 +1,49 @@
-package org.owasp.pangloss.infra.security.authenticationproviders;
+package org.owasp.pangloss.infra.security.authentication.providers;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.owasp.pangloss.infra.security.authenticationproviders.testtemplates.AuthenticationProviderTestContract;
-import org.owasp.pangloss.infra.security.authenticationproviders.testtemplates.AuthenticationProviderTestTemplate;
+import org.owasp.pangloss.infra.security.authentication.providers.testtemplates.AuthenticationProviderTestContract;
+import org.owasp.pangloss.infra.security.authentication.providers.testtemplates.AuthenticationProviderTestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.TestingAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @JdbcTest
-@ActiveProfiles({"safe"})
-public class SQLInjectionSafeAuthenticationProviderTest extends AuthenticationProviderTestTemplate implements AuthenticationProviderTestContract {
+@ActiveProfiles({"insecure"})
+public class RawSQLAuthenticationProviderTest extends AuthenticationProviderTestTemplate implements AuthenticationProviderTestContract {
 
     @Autowired
-    private SQLInjectionSafeAuthenticationProvider sqlInjectionSafeAuthenticationProvider;
+    private RawSQLAuthenticationProvider rawSQLAuthenticationProvider;
 
     @Before
     public void setup() {
-        this.authenticationProvider = sqlInjectionSafeAuthenticationProvider;
+        this.authenticationProvider = rawSQLAuthenticationProvider;
         this.authorizedUsername = "user";
         this.authorizedPassword = "pwd";
     }
 
     @Test
-    public void should_not_be_vulnerable_to_SQL_injection() {
+    public void should_be_vulnerable_to_SQL_injection() {
         //Given
         Authentication authentication = new TestingAuthenticationToken("qsd", "' OR '1'='1' LIMIT 1 --");
+        //When
+        Authentication result = authenticationProvider.authenticate(authentication);
         //Then
-        assertThatThrownBy(() -> authenticationProvider.authenticate(authentication))
-                .isInstanceOf(BadCredentialsException.class);
+        assertThat(result).isInstanceOf(UsernamePasswordAuthenticationToken.class);
+        assertThat(result.isAuthenticated()).isTrue();
+        assertThat(result.getName()).isEqualTo("admin");
+        assertThat(result.getCredentials()).isEqualTo("admin");
     }
 
     @Test
@@ -59,7 +63,7 @@ public class SQLInjectionSafeAuthenticationProviderTest extends AuthenticationPr
 
 
     @TestConfiguration
-    @ComponentScan(includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {SQLInjectionSafeAuthenticationProvider.class}))
+    @ComponentScan(includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {RawSQLAuthenticationProvider.class}))
     static class TestAuthenticationProviderConfiguration {
     }
 }

@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra.security.authenticationproviders.testtemplates;
+package org.owasp.pangloss.infra.security.authentication.providers.testtemplates;
 
 public interface AuthenticationProviderTestContract {
 
