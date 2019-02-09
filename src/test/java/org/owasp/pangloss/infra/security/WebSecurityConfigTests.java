@@ -15,8 +15,7 @@ import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_XHTML_XML;
 import static org.springframework.http.MediaType.TEXT_HTML;
 
@@ -24,17 +23,26 @@ import static org.springframework.http.MediaType.TEXT_HTML;
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public class WebSecurityConfigTests {
 
-    @Value("http://localhost:${local.server.port}/profile")
-    private String profileUrl;
+    @Value("http://localhost:${local.server.port}")
+    private String url;
     private TestRestTemplate restTemplate = new TestRestTemplate();
 
     @Test
     public void should_not_be_redirected_to_builtin_login_page_when_not_authenticated_from_the_browser() {
-        ResponseEntity<String> response = restTemplate.exchange(profileUrl, GET, request(), String.class);
+        ResponseEntity<String> response = restTemplate.exchange(url + "/profile", GET, request(), String.class);
         System.out.println(response.getBody());
         assertThat(response.getStatusCode())
                 .isNotEqualTo(OK)
                 .isEqualTo(UNAUTHORIZED);
+    }
+
+    @Test
+    public void should_not_be_redirected_on_logout() {
+        ResponseEntity<String> response = restTemplate.postForEntity(url + "/logout", null, String.class);
+
+        assertThat(response.getStatusCode())
+                .isNotEqualTo(FOUND)
+                .isEqualTo(OK);
     }
 
     private HttpEntity<String> request() {
