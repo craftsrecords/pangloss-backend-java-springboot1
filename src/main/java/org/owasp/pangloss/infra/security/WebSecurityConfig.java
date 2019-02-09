@@ -30,6 +30,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                  * when trying to access a resource endpoint without being authenticated
                  * inside a browser
                  */
-                .authenticationEntryPoint(new Http401AuthenticationEntryPoint(""));
+                .authenticationEntryPoint(new Http401AuthenticationEntryPoint("login"));
     }
 }
