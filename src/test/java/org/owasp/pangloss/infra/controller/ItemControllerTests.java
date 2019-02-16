@@ -11,6 +11,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,7 +28,9 @@ public class ItemControllerTests {
 
     @Test
     public void should_return_items_of_the_given_category() throws Exception {
-        mockMvc.perform(get("/items").param("categoryId", "books"))
+        mockMvc.perform(get("/items")
+                .contentType(APPLICATION_JSON)
+                .content("{ \"categoryId\": \"books\"}"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[\n" +
                         "    {\n" +
@@ -49,7 +52,9 @@ public class ItemControllerTests {
 
     @Test
     public void should_throw_BadRequest_when_trying_to_list_items_for_an_unknown_category() throws Exception {
-        mockMvc.perform(get("/items").param("categoryId", "unknown"))
+        mockMvc.perform(get("/items")
+                .contentType(APPLICATION_JSON)
+                .content("{\"categoryId\": \"unknown\"}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(status().reason("No items found for category unknown"));
     }

@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra.security;
+package org.owasp.pangloss.infra.configurations;
 
 import org.owasp.pangloss.infra.security.authentication.handlers.OKAuthenticationSuccessHandler;
 import org.owasp.pangloss.infra.security.authentication.handlers.UnauthorizedAuthenticationFailureHandler;

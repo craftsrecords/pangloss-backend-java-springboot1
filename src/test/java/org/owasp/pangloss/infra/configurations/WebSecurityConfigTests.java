@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra.security;
+package org.owasp.pangloss.infra.configurations;
 
 
 import org.junit.Test;
