@@ -31,11 +31,11 @@ public class CategoryControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(content().json("[\n" +
                         "  {\n" +
-                        "    \"id\": \"0226a6e7-5f55-4d86-bbec-57a93f1dbc61\",\n" +
+                        "    \"id\": \"books\",\n" +
                         "    \"name\": \"Books\"\n" +
                         "  },\n" +
                         "  {\n" +
-                        "    \"id\": \"10364947-779c-4cf3-a6a7-07e7093abca2\",\n" +
+                        "    \"id\": \"gameconsoles\",\n" +
                         "    \"name\": \"Game Consoles\"\n" +
                         "  }\n" +
                         "]"));

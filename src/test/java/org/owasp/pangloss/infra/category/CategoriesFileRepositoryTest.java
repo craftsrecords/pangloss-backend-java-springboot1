@@ -10,7 +10,6 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Set;
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,8 +22,8 @@ public class CategoriesFileRepositoryTest {
     @Test
     public void should_read_categories_from_file() {
 
-        Category books = new Category(UUID.fromString("0226a6e7-5f55-4d86-bbec-57a93f1dbc61"), "Books");
-        Category gameConsoles = new Category(UUID.fromString("10364947-779c-4cf3-a6a7-07e7093abca2"), "Game Consoles");
+        Category books = new Category("books", "Books");
+        Category gameConsoles = new Category("gameconsoles", "Game Consoles");
 
         Set<Category> categories = categoriesFileRepository.allCategories();
         assertThat(categories).hasSize(2);
