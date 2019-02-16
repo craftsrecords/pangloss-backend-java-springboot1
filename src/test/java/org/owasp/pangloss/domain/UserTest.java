@@ -1,6 +1,7 @@
 package org.owasp.pangloss.domain;
 
 import org.junit.Test;
+import org.owasp.pangloss.domain.user.User;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

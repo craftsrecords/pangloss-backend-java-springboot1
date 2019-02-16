@@ -1,4 +1,4 @@
-package org.owasp.pangloss.domain;
+package org.owasp.pangloss.domain.user;
 
 import javax.annotation.Nonnull;
 
