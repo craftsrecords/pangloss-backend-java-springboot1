@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import static org.apache.commons.lang3.Validate.notBlank;
 
-public class Category {
+public final class Category {
     private String id; //FYI: UUID is a better option, using String for the demo
     private String name;
 

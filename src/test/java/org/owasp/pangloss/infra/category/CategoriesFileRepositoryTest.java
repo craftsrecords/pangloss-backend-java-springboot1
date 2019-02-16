@@ -26,6 +26,7 @@ public class CategoriesFileRepositoryTest {
         Category gameConsoles = new Category("gameconsoles", "Game Consoles");
 
         Set<Category> categories = categoriesFileRepository.allCategories();
+
         assertThat(categories).hasSize(2);
         assertThat(categories)
                 .usingFieldByFieldElementComparator()
