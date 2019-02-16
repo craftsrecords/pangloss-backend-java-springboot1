@@ -4,7 +4,7 @@ import javax.annotation.Nonnull;
 
 import static org.apache.commons.lang3.Validate.notBlank;
 
-public class User {
+public final class User {
     private final String name;
 
     public User(@Nonnull String name) {

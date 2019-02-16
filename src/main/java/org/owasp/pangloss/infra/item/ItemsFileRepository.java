@@ -1,7 +1,13 @@
 package org.owasp.pangloss.infra.item;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.owasp.pangloss.domain.item.Item;
 import org.owasp.pangloss.domain.item.Items;
 import org.owasp.pangloss.domain.item.NoItemsFoundForThisCategoryException;
@@ -25,7 +31,7 @@ public final class ItemsFileRepository implements Items {
     private Resource itemsByCategoryFile;
 
     public ItemsFileRepository() {
-        objectMapper = json().build();
+        objectMapper = createObjectMapper();
     }
 
     @Override
@@ -45,4 +51,35 @@ public final class ItemsFileRepository implements Items {
         }
         return itemsByCategory;
     }
+
+    private ObjectMapper createObjectMapper() {
+        ObjectMapper objectMapper = json().build();
+        objectMapper.registerModule(createDeserializerModule());
+        return objectMapper;
+    }
+
+    private SimpleModule createDeserializerModule() {
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(Item.class, new ItemDeserializer());
+        return module;
+    }
+
+    private class ItemDeserializer extends JsonDeserializer<Item> {
+
+        @Override
+        public Item deserialize(JsonParser parser, DeserializationContext context) throws IOException {
+            JsonNode node = readNode(parser);
+            return new Item(node.get("id").asText(),
+                    node.get("name").asText(),
+                    node.get("description").asText(),
+                    node.get("brand").asText(),
+                    node.get("price").asText());
+        }
+
+        private JsonNode readNode(JsonParser parser) throws IOException {
+            ObjectCodec objectCodec = parser.getCodec();
+            return objectCodec.readTree(parser);
+        }
+    }
+
 }
