@@ -2,13 +2,13 @@ package org.owasp.pangloss.domain;
 
 import javax.annotation.Nonnull;
 
-import static java.util.Objects.requireNonNull;
+import static org.apache.commons.lang3.Validate.notBlank;
 
 public class User {
     private final String name;
 
     public User(@Nonnull String name) {
-        this.name = requireNonNull(name, "name cannot be null");
+        this.name = notBlank(name, "name cannot be blank");
     }
 
 

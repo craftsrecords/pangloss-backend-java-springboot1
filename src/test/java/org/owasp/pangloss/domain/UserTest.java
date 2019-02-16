@@ -18,9 +18,16 @@ public class UserTest {
     }
 
     @Test
-    public void should_not_be_able_to_create_user_from_null_name() {
+    public void should_not_be_able_to_create_user_with_no_name() {
         assertThatThrownBy(() -> new User(null))
-                .hasMessage("name cannot be null")
+                .hasMessage("name cannot be blank")
                 .isInstanceOf(NullPointerException.class);
+    }
+
+    @Test
+    public void should_not_be_able_to_create_user_with_a_blank_name() {
+        assertThatThrownBy(() -> new User("  "))
+                .hasMessage("name cannot be blank")
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
