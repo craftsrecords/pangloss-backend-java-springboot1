@@ -18,7 +18,7 @@ public class CategoriesFileRepository implements Categories {
 
     private final ObjectMapper objectMapper;
 
-    @Value("data/categories.json")
+    @Value("classpath:data/categories.json")
     private Resource categoriesFile;
 
     public CategoriesFileRepository() {
