@@ -1,7 +1,6 @@
-package org.owasp.pangloss.domain;
+package org.owasp.pangloss.domain.category;
 
 import org.junit.Test;
-import org.owasp.pangloss.domain.category.Category;
 
 import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,6 +23,13 @@ public class CategoryTest {
     public void should_not_create_a_category_with_no_id() {
         assertThatThrownBy(() -> new Category(null, "category"))
                 .isInstanceOf(NullPointerException.class)
+                .hasMessage("Cannot create a category with no id");
+    }
+
+    @Test
+    public void should_not_create_a_category_with_blank_id() {
+        assertThatThrownBy(() -> new Category("      ", "category"))
+                .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Cannot create a category with no id");
     }
 
