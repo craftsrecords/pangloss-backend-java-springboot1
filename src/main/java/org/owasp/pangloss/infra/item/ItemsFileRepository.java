@@ -23,7 +23,7 @@ import static java.util.Optional.ofNullable;
 import static org.springframework.http.converter.json.Jackson2ObjectMapperBuilder.json;
 
 @Repository
-public final class ItemsFileRepository implements Items {
+public class ItemsFileRepository implements Items {
 
     private final ObjectMapper objectMapper;
 
