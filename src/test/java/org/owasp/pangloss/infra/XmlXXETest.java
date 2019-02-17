@@ -2,15 +2,10 @@ package org.owasp.pangloss.infra;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.owasp.pangloss.domain.item.Items;
-import org.owasp.pangloss.infra.configurations.WebConfig;
-import org.owasp.pangloss.infra.controller.ItemController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
@@ -19,19 +14,18 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.nio.file.Files;
 
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.core.StringContains.containsString;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_XML;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(
-        value = ItemController.class,
-        includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = Items.class))
-@Import(WebConfig.class)
 @WithMockUser("poc-user")
 @ActiveProfiles("insecure")
+@AutoConfigureMockMvc
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 public class XmlXXETest {
 
     @Autowired
