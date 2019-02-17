@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra;
+package org.owasp.pangloss.infra.configurations;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.nio.file.Files;
 
-import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_XML;
@@ -23,10 +22,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WithMockUser("poc-user")
-@ActiveProfiles("insecure")
+@ActiveProfiles("safe")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-public class XmlXXETest {
+public class SafeXmlParserTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -35,12 +34,11 @@ public class XmlXXETest {
     private Resource xxeFile;
 
     @Test
-    public void should_throw_BadRequest_when_trying_to_list_items_for_an_unknown_category() throws Exception {
+    public void should_not_be_vulnerable_to_XXE_attack() throws Exception {
         mockMvc.perform(post("/items")
                 .contentType(APPLICATION_XML)
                 .content(Files.readAllBytes(xxeFile.getFile().toPath())))
-                .andExpect(status().reason(containsString("insert into users (username, password) values ('admin', 'admin');")))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isForbidden());
     }
 
     @Test

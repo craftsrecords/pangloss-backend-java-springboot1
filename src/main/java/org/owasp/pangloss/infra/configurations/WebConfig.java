@@ -1,17 +1,22 @@
 package org.owasp.pangloss.infra.configurations;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-import javax.xml.stream.XMLInputFactory;
 import java.util.List;
 
 @Configuration
+@Profile("!poc")
 public class WebConfig extends WebMvcConfigurationSupport {
+
+    @Autowired
+    private XmlMapper xmlMapper;
 
     @Override
     protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -19,10 +24,6 @@ public class WebConfig extends WebMvcConfigurationSupport {
         //Use the Jackson2ObjectMapperBuilder instead which provides default security configurations
         //BTW WebMvcConfigurationSupport should be used for non Spring Boot Applications
         converters.add(new MappingJackson2HttpMessageConverter());
-        converters.add(new MappingJackson2XmlHttpMessageConverter(createXmlParser()));
-    }
-
-    private XmlMapper createXmlParser() {
-        return new XmlMapper(XMLInputFactory.newInstance());
+        converters.add(new MappingJackson2XmlHttpMessageConverter(xmlMapper));
     }
 }
