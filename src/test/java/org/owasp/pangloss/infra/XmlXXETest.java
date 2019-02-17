@@ -19,10 +19,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.nio.file.Files;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_XML;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -40,13 +40,12 @@ public class XmlXXETest {
     @Value("classpath:xxe.xml")
     private Resource xxeFile;
 
-
     @Test
     public void should_throw_BadRequest_when_trying_to_list_items_for_an_unknown_category() throws Exception {
         mockMvc.perform(post("/items")
                 .contentType(APPLICATION_XML)
                 .content(Files.readAllBytes(xxeFile.getFile().toPath())))
-                .andDo(print())
+                .andExpect(status().reason(containsString("insert into users (username, password) values ('admin', 'admin');")))
                 .andExpect(status().isBadRequest());
     }
 

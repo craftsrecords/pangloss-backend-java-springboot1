@@ -1,5 +1,5 @@
 <!DOCTYPE ItemsSelector [
-        <!ENTITY file SYSTEM "file:///C:/Windows/System32/drivers/etc/hosts">
+        <!ENTITY file SYSTEM "classpath:data.sql">
         ]>
 <ItemsSelector>
     <categoryId>&file;</categoryId>
