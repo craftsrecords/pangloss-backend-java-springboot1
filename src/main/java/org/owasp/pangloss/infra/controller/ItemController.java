@@ -3,7 +3,7 @@ package org.owasp.pangloss.infra.controller;
 import org.owasp.pangloss.domain.item.Item;
 import org.owasp.pangloss.domain.item.Items;
 import org.owasp.pangloss.domain.item.ItemsSelector;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,9 +18,8 @@ public class ItemController {
         this.items = items;
     }
 
-    @GetMapping(path = "items")
+    @PostMapping(path = "items")
     public Set<Item> getItems(@RequestBody ItemsSelector itemsSelector) {
-        System.out.println(itemsSelector.getCategoryId());
         return items.getAllItemsOfCategory(itemsSelector.getCategoryId());
     }
 }

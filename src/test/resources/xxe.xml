@@ -1,0 +1,6 @@
+<!DOCTYPE ItemsSelector [
+        <!ENTITY file SYSTEM "file:///C:/Windows/System32/drivers/etc/hosts">
+        ]>
+<ItemsSelector>
+    <categoryId>&file;</categoryId>
+</ItemsSelector>
