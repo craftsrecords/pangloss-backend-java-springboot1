@@ -2,12 +2,15 @@ package org.owasp.pangloss.domain.item;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
+import static java.math.BigDecimal.TEN;
 import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class ItemTest {
-    private String price = "price";
+    private BigDecimal price = TEN;
     private String brand = "brand";
     private String description = "description";
     private String name = "name";
@@ -68,10 +71,10 @@ public class ItemTest {
     }
 
     @Test
-    public void should_not_create_a_category_with_blank_price() {
-        assertThatThrownBy(() -> new Item(id, name, description, brand, "     "))
+    public void should_not_create_a_category_with_negative_price() {
+        assertThatThrownBy(() -> new Item(id, name, description, brand, new BigDecimal("-2")))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("Cannot create an item with no price");
+                .hasMessage("Cannot create an item with a negative price");
     }
 
     @Test

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -45,8 +46,8 @@ public class ItemsFileRepositoryTest {
     }
 
     private List<Item> expectedItems() {
-        Item k3dx = new Item("3dx", "3DX", "Breaking your eyes in 3 dimensions, everywhere", "Kendo", "EUR 199.99");
-        Item gamedude = new Item("gamedude", "Game Dude", "Maybe Old School, but has enough power to send you to the moon", "Kendo", "EUR 50,00");
+        Item k3dx = new Item("3dx", "3DX", "Breaking your eyes in 3 dimensions, everywhere", "Kendo", new BigDecimal("199.99"));
+        Item gamedude = new Item("gamedude", "Game Dude", "Maybe Old School, but has enough power to send you to the moon", "Kendo", new BigDecimal("50.00"));
         return asList(k3dx, gamedude);
     }
 

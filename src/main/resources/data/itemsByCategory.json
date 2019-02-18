@@ -5,63 +5,63 @@
       "name": "Making Arbitrary Forecasts",
       "description": "Saying something so people feel better about giving you money",
       "brand": "O RLY?",
-      "price": "EUR 18,50"
+      "price": "18.50"
     },
     {
       "id": "exitingvim",
       "name": "Exiting Vim Eventually",
       "description": "Just memorize these fourteen contextually dependant instructions",
       "brand": "O RLY?",
-      "price": "EUR 15,50"
+      "price": "15.50"
     },
     {
       "id": "expertexcusesfornotwritingunittests",
       "name": "Expert Excuses For Not Writing Unit Tests",
       "description": "Your application is a special snowflake",
       "brand": "O RLY?",
-      "price": "EUR 33,64"
+      "price": "33.64"
     },
     {
       "id": "hatingotherpeoplescode",
       "name": "Essential Hating Other Peoples Code",
       "description": "It's only a clever hack if you're the one who wrote it",
       "brand": "O RLY?",
-      "price": "EUR 30,70"
+      "price": "30.70"
     },
     {
       "id": "hopingnobodyhacksyou",
       "name": "Expret Hoping Nobody Hacks You",
       "description": "Security by optimism and prayer",
       "brand": "O RLY?",
-      "price": "EUR 18,50"
+      "price": "18.50"
     },
     {
       "id": "hypedrivendevelopment",
       "name": "Hype Driven Development - Life on the Bandwagon",
       "description": "Looking for love in all the wrong frameworks",
       "brand": "O RLY?",
-      "price": "EUR 14,76"
+      "price": "14.76"
     },
     {
       "id": "movingfastandbreakthings",
       "name": "Moving Fast And Break Things - Fragile Development Guide",
       "description": "Just put the technical debt on my credit card",
       "brand": "O RLY?",
-      "price": "EUR 33,30"
+      "price": "33.30"
     },
     {
       "id": "nobodyelsecanread",
       "name": "Writing Code The Nobody Else Can Read - The Definitive Guide",
       "description": "Does it run? Just leave it alone",
       "brand": "O RLY?",
-      "price": "EUR 32,96"
+      "price": "32.96"
     },
     {
       "id": "solvingimaginaryscalingissues",
       "name": "Solving Imaginary Scaling Issues - At Scale",
       "description": "Getting the wrong idea from that conference talk you attended",
       "brand": "O RLY?",
-      "price": "EUR 14,02"
+      "price": "14.02"
     }
   ],
   "gameconsoles": [
@@ -70,56 +70,56 @@
       "name": "3DX",
       "description": "Breaking your eyes in 3 dimensions, everywhere",
       "brand": "Kendo",
-      "price": "EUR 199.99"
+      "price": "199.99"
     },
     {
       "id": "gamedude",
       "name": "Game Dude",
       "description": "Maybe Old School, but has enough power to send you to the moon",
       "brand": "Kendo",
-      "price": "EUR 50,00"
+      "price": "50.00"
     },
     {
       "id": "gamesquare",
       "name": "Game Square",
       "description": "Boris 'The Blade' Yurinov: \"If it doesn't work you can always hit them with it\"",
       "brand": "Kendo",
-      "price": "EUR 29,95"
+      "price": "29.95"
     },
     {
       "id": "game-station-4",
       "name": "Game Station 4",
       "description": "For the prayers",
       "brand": "Sunny",
-      "price": "EUR 399,99"
+      "price": "399.99"
     },
     {
       "id": "ouii",
       "name": "Ouii",
       "description": "Making you believe you are doing sport hoping your television is controller-proof",
       "brand": "Kendo",
-      "price": "EUR 114,75"
+      "price": "114.75"
     },
     {
       "id": "ouii-you",
       "name": "Ouii You",
       "description": "Making your friends jealous while playing with them",
       "brand": "Kendo",
-      "price": "EUR 195,00"
+      "price": "195.00"
     },
     {
       "id": "supradrive",
       "name": "Supra Drive",
       "description": "Cracking Down with the rolling blue hedgehog",
       "brand": "Mega",
-      "price": "EUR 59,99"
+      "price": "59.99"
     },
     {
       "id": "zune-box-one",
       "name": "Zune Box One",
       "description": "Fear the Red Ring of Death",
       "brand": "DosSoft",
-      "price": "EUR 399,99"
+      "price": "399.99"
     }
   ]
 }

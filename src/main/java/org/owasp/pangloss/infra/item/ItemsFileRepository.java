@@ -16,6 +16,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Set;
 
@@ -73,7 +74,7 @@ public class ItemsFileRepository implements Items {
                     node.get("name").asText(),
                     node.get("description").asText(),
                     node.get("brand").asText(),
-                    node.get("price").asText());
+                    new BigDecimal(node.get("price").asText()));
         }
 
         private JsonNode readNode(JsonParser parser) throws IOException {

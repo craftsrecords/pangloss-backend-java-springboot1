@@ -5,14 +5,14 @@
       "name": "Making Arbitrary Forecasts",
       "description": "Saying something so people feel better about giving you money",
       "brand": "O RLY?",
-      "price": "EUR 18,50"
+      "price": "18.50"
     },
     {
       "id": "exitingvim",
       "name": "Exiting Vim Eventually",
       "description": "Just memorize these fourteen contextually dependant instructions",
       "brand": "O RLY?",
-      "price": "EUR 15,50"
+      "price": "15.50"
     }
   ],
   "gameconsoles": [
@@ -21,14 +21,14 @@
       "name": "3DX",
       "description": "Breaking your eyes in 3 dimensions, everywhere",
       "brand": "Kendo",
-      "price": "EUR 199.99"
+      "price": "199.99"
     },
     {
       "id": "gamedude",
       "name": "Game Dude",
       "description": "Maybe Old School, but has enough power to send you to the moon",
       "brand": "Kendo",
-      "price": "EUR 50,00"
+      "price": "50.00"
     }
   ]
 }

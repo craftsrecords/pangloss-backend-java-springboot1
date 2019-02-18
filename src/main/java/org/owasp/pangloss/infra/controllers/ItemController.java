@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra.controller;
+package org.owasp.pangloss.infra.controllers;
 
 import org.owasp.pangloss.domain.item.Item;
 import org.owasp.pangloss.domain.item.Items;

@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra.controller;
+package org.owasp.pangloss.infra.controllers;
 
 import com.ctc.wstx.exc.WstxParsingException;
 import org.owasp.pangloss.domain.item.NoItemsFoundForThisCategoryException;

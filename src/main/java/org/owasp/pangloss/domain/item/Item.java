@@ -1,7 +1,11 @@
 package org.owasp.pangloss.domain.item;
 
+import javax.annotation.Nonnull;
+import java.math.BigDecimal;
 import java.util.Objects;
 
+import static java.util.Objects.requireNonNull;
+import static org.apache.commons.lang3.Validate.isTrue;
 import static org.apache.commons.lang3.Validate.notBlank;
 
 public final class Item {
@@ -9,14 +13,24 @@ public final class Item {
     private final String name;
     private final String description;
     private final String brand;
-    private final String price;
+    private final BigDecimal price;
 
-    public Item(String id, String name, String description, String brand, String price) {
+    public Item(@Nonnull String id,
+                @Nonnull String name,
+                @Nonnull String description,
+                @Nonnull String brand,
+                @Nonnull BigDecimal price) {
         this.id = notBlank(id, "Cannot create an item with no id");
         this.name = notBlank(name, "Cannot create an item with a blank name");
         this.description = notBlank(description, "Cannot create an item with a blank description");
         this.brand = notBlank(brand, "Cannot create an item with a blank brand");
-        this.price = notBlank(price, "Cannot create an item with no price");
+        this.price = validatePrice(price);
+    }
+
+    private BigDecimal validatePrice(@Nonnull BigDecimal price) {
+        requireNonNull(price, "Cannot create an item with no price");
+        isTrue(price.signum() == 1, "Cannot create an item with a negative price");
+        return price;
     }
 
     public String getId() {
@@ -35,7 +49,7 @@ public final class Item {
         return brand;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
