@@ -10,7 +10,7 @@ import java.security.Principal;
 @RestController("profile")
 public class ProfileController {
 
-    @GetMapping(path = "/profile")
+    @GetMapping(path = "api/profile")
     public ResponseEntity<User> profile(Principal principal) {
         return ResponseEntity.ok(new User(principal.getName()));
     }

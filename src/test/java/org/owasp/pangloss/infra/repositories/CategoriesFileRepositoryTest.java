@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra.category;
+package org.owasp.pangloss.infra.repositories;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

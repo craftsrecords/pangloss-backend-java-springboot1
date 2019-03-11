@@ -17,16 +17,14 @@ public abstract class PanglossApplicationTestsTemplate {
 
     private final String authorizedUserName;
     private final String authorizedUserPassword;
-    @Value("http://localhost:${local.server.port}/login")
+    @Value("http://localhost:${local.server.port}/api/login")
     private String loginUrl;
     private TestRestTemplate restTemplate = new TestRestTemplate();
-
 
     protected PanglossApplicationTestsTemplate(String authorizedUserName, String authorizedUserPassword) {
         this.authorizedUserName = authorizedUserName;
         this.authorizedUserPassword = authorizedUserPassword;
     }
-
 
     protected void should_return_http401_if_credentials_are_invalid() {
         ResponseEntity response = restTemplate.postForEntity(loginUrl, null, Void.class);

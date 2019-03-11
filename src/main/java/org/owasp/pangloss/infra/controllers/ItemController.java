@@ -18,7 +18,7 @@ public class ItemController {
         this.items = items;
     }
 
-    @PostMapping(path = "items")
+    @PostMapping(path = "api/items")
     public Set<Item> getItems(@RequestBody ItemsSelector itemsSelector) {
         return items.getAllItemsOfCategory(itemsSelector.getCategoryId());
     }

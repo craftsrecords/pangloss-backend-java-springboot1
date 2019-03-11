@@ -18,12 +18,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/logout").permitAll()
+                .antMatchers("/api/login", "/api/logout").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
                 .and()
-                .formLogin()
+                .formLogin().loginProcessingUrl("/api/login")
                 .successHandler(new OKAuthenticationSuccessHandler())
                 .failureHandler(new UnauthorizedAuthenticationFailureHandler())
                 .and()
@@ -35,6 +35,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                  */
                 .authenticationEntryPoint(new Http401AuthenticationEntryPoint("login"))
                 .and()
-                .logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
+                .logout().logoutUrl("/api/logout").logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
     }
 }

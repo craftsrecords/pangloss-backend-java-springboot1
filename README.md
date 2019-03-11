@@ -8,5 +8,5 @@ Pangloss is Candide's teacher, and follows a Leibnizian mantra: "all is for the 
 ## Building the backend
 `mvn clean install`
 
-## Live Coding tasks
-* Add authentication on endpoints
+## Links
+https://github.com/OWASP/owasp-java-encoder/

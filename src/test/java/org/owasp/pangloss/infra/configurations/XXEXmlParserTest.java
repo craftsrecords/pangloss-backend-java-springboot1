@@ -36,7 +36,7 @@ public class XXEXmlParserTest {
 
     @Test
     public void should_be_vulnerable_to_XXE_attack() throws Exception {
-        mockMvc.perform(post("/items")
+        mockMvc.perform(post("/api/items")
                 .contentType(APPLICATION_XML)
                 .content(Files.readAllBytes(xxeFile.getFile().toPath())))
                 .andExpect(status().reason(containsString("insert into users (username, password) values ('admin', 'admin');")))
@@ -45,7 +45,7 @@ public class XXEXmlParserTest {
 
     @Test
     public void should_still_be_able_to_request_in_json() throws Exception {
-        mockMvc.perform(post("/items")
+        mockMvc.perform(post("/api/items")
                 .contentType(APPLICATION_JSON)
                 .content("{\"categoryId\": \"unknown\"}"))
                 .andExpect(status().isBadRequest());

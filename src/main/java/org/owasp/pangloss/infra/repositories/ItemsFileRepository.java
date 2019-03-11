@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra.item;
+package org.owasp.pangloss.infra.repositories;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -82,5 +82,4 @@ public class ItemsFileRepository implements Items {
             return objectCodec.readTree(parser);
         }
     }
-
 }

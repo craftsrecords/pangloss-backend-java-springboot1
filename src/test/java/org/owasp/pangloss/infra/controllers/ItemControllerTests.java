@@ -3,12 +3,10 @@ package org.owasp.pangloss.infra.controllers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.owasp.pangloss.domain.item.Items;
-import org.owasp.pangloss.infra.configurations.JacksonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,7 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@Import(JacksonConfig.class)
 @WebMvcTest(
         value = ItemController.class,
         includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = Items.class))
@@ -32,7 +29,7 @@ public class ItemControllerTests {
 
     @Test
     public void should_return_items_of_the_given_category() throws Exception {
-        mockMvc.perform(post("/items")
+        mockMvc.perform(post("/api/items")
                 .contentType(APPLICATION_JSON)
                 .content("{ \"categoryId\": \"books\"}"))
                 .andExpect(status().isOk())
@@ -57,7 +54,7 @@ public class ItemControllerTests {
 
     @Test
     public void should_throw_BadRequest_when_trying_to_list_items_for_an_unknown_category() throws Exception {
-        mockMvc.perform(post("/items")
+        mockMvc.perform(post("/api/items")
                 .contentType(APPLICATION_JSON)
                 .content("{\"categoryId\": \"unknown\"}"))
                 .andExpect(status().isBadRequest())

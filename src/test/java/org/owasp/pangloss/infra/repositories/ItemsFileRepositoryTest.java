@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra.item;
+package org.owasp.pangloss.infra.repositories;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +42,6 @@ public class ItemsFileRepositoryTest {
         assertThatThrownBy(() -> itemsFileRepository.getAllItemsOfCategory("unknown"))
                 .isInstanceOf(NoItemsFoundForThisCategoryException.class)
                 .hasMessage("No items found for category unknown");
-
     }
 
     private List<Item> expectedItems() {
@@ -55,5 +54,4 @@ public class ItemsFileRepositoryTest {
     @ComponentScan(includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = ItemsFileRepository.class))
     static class Configuration {
     }
-
 }
