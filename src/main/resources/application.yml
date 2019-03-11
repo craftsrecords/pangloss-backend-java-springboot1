@@ -1,10 +1,14 @@
 spring:
   profiles:
-    active: poc
+    active: insecure
   output:
     ansi.enabled: ALWAYS
   datasource:
     generate-unique-name: true
+  data:
+    rest:
+      base-path: /api
+
 
 ---
 #Never use poc profile in production guys !!!!

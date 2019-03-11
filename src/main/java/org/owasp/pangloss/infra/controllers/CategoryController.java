@@ -16,9 +16,8 @@ public class CategoryController {
         this.categories = categories;
     }
 
-    @GetMapping(path = "categories")
+    @GetMapping(path = "api/categories")
     public Set<Category> allCategories() {
         return categories.allCategories();
     }
-
 }

@@ -23,7 +23,7 @@ public class ProfileControllerTests {
     @Test
     @WithMockUser(username = USERNAME)
     public void should_return_poc_user() throws Exception {
-        mockMvc.perform(get("/profile"))
+        mockMvc.perform(get("/api/profile"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("{\"name\":\"" + USERNAME + "\"}"));
     }
@@ -33,5 +33,4 @@ public class ProfileControllerTests {
         mockMvc.perform(get("/profile"))
                 .andExpect(status().isUnauthorized());
     }
-
 }

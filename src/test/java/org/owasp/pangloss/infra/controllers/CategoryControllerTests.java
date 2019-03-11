@@ -27,7 +27,7 @@ public class CategoryControllerTests {
 
     @Test
     public void should_return_categories() throws Exception {
-        mockMvc.perform(get("/categories"))
+        mockMvc.perform(get("/api/categories"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[\n" +
                         "  {\n" +

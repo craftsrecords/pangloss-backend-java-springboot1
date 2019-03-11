@@ -1,4 +1,4 @@
-package org.owasp.pangloss.infra.category;
+package org.owasp.pangloss.infra.repositories;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;

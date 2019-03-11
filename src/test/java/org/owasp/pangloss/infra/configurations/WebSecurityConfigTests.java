@@ -1,6 +1,5 @@
 package org.owasp.pangloss.infra.configurations;
 
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,14 +22,13 @@ import static org.springframework.http.MediaType.TEXT_HTML;
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public class WebSecurityConfigTests {
 
-    @Value("http://localhost:${local.server.port}")
+    @Value("http://localhost:${local.server.port}/api")
     private String url;
     private TestRestTemplate restTemplate = new TestRestTemplate();
 
     @Test
     public void should_not_be_redirected_to_builtin_login_page_when_not_authenticated_from_the_browser() {
         ResponseEntity<String> response = restTemplate.exchange(url + "/profile", GET, request(), String.class);
-        System.out.println(response.getBody());
         assertThat(response.getStatusCode())
                 .isNotEqualTo(OK)
                 .isEqualTo(UNAUTHORIZED);
@@ -50,5 +48,4 @@ public class WebSecurityConfigTests {
         headers.setAccept(asList(TEXT_HTML, APPLICATION_XHTML_XML));
         return new HttpEntity<>("", headers);
     }
-
 }
