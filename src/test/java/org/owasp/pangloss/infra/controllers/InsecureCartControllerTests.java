@@ -31,7 +31,7 @@ public class InsecureCartControllerTests {
     private MockMvc mockMvc;
 
     @Test
-    public void should_create_a_cart() throws Exception {
+    public void should_create_a_cart_with_security_flaws() throws Exception {
         System.setProperty("hacked", "false");
 
         AtomicReference<String> cartLocation = new AtomicReference<>();
