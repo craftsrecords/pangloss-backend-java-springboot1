@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: insecure
+    active: safe
   output:
     ansi.enabled: ALWAYS
   datasource:

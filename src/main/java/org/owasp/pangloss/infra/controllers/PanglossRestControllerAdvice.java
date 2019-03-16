@@ -3,14 +3,15 @@ package org.owasp.pangloss.infra.controllers;
 import com.ctc.wstx.exc.WstxParsingException;
 import org.owasp.pangloss.domain.item.NoItemsFoundForThisCategoryException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 
-import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
-import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
+import static javax.servlet.http.HttpServletResponse.*;
 
 @RestControllerAdvice
 public class PanglossRestControllerAdvice {
@@ -27,6 +28,16 @@ public class PanglossRestControllerAdvice {
             response.sendError(SC_FORBIDDEN);
         } else {
             response.sendError(SC_BAD_REQUEST, "Unable to process the request");
+        }
+    }
+
+    @ExceptionHandler(TransactionSystemException.class)
+    public void handleTransactionSystemException(HttpServletResponse response, TransactionSystemException e) throws IOException {
+        Throwable rootCause = e.getRootCause();
+        if (rootCause instanceof ConstraintViolationException) {
+            response.sendError(SC_BAD_REQUEST, "Forbidden HTML characters detected");
+        } else {
+            response.sendError(SC_INTERNAL_SERVER_ERROR);
         }
     }
 }
