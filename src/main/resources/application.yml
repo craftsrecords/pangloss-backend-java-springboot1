@@ -1,3 +1,5 @@
+server:
+  port: 1759
 spring:
   profiles:
     active: safe
