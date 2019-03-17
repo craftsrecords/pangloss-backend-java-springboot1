@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,6 +30,7 @@ public class SaferCartControllerTests {
 
         mockMvc.perform(
                 post("/api/carts")
+                        .with(csrf())
                         .content("{\"address\": \"<script>alert('Hacked!')</script>\" }")
                         .contentType(APPLICATION_JSON_UTF8)
                         .accept(APPLICATION_JSON_UTF8))

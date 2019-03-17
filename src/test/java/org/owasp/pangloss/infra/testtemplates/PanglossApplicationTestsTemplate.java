@@ -1,6 +1,6 @@
 package org.owasp.pangloss.infra.testtemplates;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,9 +17,9 @@ public abstract class PanglossApplicationTestsTemplate {
 
     private final String authorizedUserName;
     private final String authorizedUserPassword;
-    @Value("http://localhost:${local.server.port}/api/login")
-    private String loginUrl;
-    private TestRestTemplate restTemplate = new TestRestTemplate();
+    private String loginUrl = "/api/login";
+    @Autowired
+    private TestRestTemplate restTemplate;
 
     protected PanglossApplicationTestsTemplate(String authorizedUserName, String authorizedUserPassword) {
         this.authorizedUserName = authorizedUserName;

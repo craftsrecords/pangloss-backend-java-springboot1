@@ -2,7 +2,7 @@ server:
   port: 1759
 spring:
   profiles:
-    active: safe
+    active: safe, ssl
   output:
     ansi.enabled: ALWAYS
   datasource:
@@ -11,8 +11,13 @@ spring:
     rest:
       base-path: /api
 
-
 ---
-#Never use poc profile in production guys !!!!
+
 spring:
-  profiles: poc
+  profiles: ssl
+
+server:
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:keystore/localhost.p12
+    key-store-password: pangloss

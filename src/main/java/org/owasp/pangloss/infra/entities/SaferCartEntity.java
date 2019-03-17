@@ -1,5 +1,6 @@
 package org.owasp.pangloss.infra.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.persistence.*;
@@ -19,7 +20,11 @@ public class SaferCartEntity extends CartEntity {
     @ElementCollection(fetch = EAGER)
     private List<ItemEntity> items = emptyList();
 
+    @JsonIgnore
+    private String owner;
+
     @SafeHtml
+    @Column(length = 5000)
     private String address = "";
 
     public UUID getId() {
@@ -44,5 +49,14 @@ public class SaferCartEntity extends CartEntity {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }
