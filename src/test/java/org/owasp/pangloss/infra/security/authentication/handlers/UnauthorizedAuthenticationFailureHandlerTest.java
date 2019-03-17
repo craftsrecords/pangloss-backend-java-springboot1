@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class UnauthorizedAuthenticationFailureHandlerTest {
         MockHttpServletResponse response = new MockHttpServletResponse();
         AuthenticationFailureHandler authenticationFailureHandler = new UnauthorizedAuthenticationFailureHandler();
 
-        authenticationFailureHandler.onAuthenticationFailure(new MockHttpServletRequest(), response, null);
+        authenticationFailureHandler.onAuthenticationFailure(new MockHttpServletRequest(), response, new BadCredentialsException(""));
 
         int expectedHttpStatus = 401;
         assertThat(response.getStatus()).isEqualTo(expectedHttpStatus);
@@ -38,5 +39,4 @@ public class UnauthorizedAuthenticationFailureHandlerTest {
     private JsonNode parse(byte[] content) throws IOException {
         return objectMapper.readTree(content);
     }
-
 }

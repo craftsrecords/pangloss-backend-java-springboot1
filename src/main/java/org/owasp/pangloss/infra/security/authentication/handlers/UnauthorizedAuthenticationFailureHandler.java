@@ -21,6 +21,7 @@ public class UnauthorizedAuthenticationFailureHandler implements AuthenticationF
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
+        exception.printStackTrace();
         int status = HttpStatus.UNAUTHORIZED.value();
         response.setStatus(status);
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
@@ -28,7 +29,6 @@ public class UnauthorizedAuthenticationFailureHandler implements AuthenticationF
         Map<String, Object> responseBody = responseBody(status);
         response.getOutputStream()
                 .println(objectMapper.writeValueAsString(responseBody));
-
     }
 
     private Map<String, Object> responseBody(int status) {

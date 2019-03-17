@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_XML;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,6 +45,7 @@ public class SafeXmlParserTest {
     @Test
     public void should_still_be_able_to_request_in_json() throws Exception {
         mockMvc.perform(post("/api/items")
+                .with(csrf())
                 .contentType(APPLICATION_JSON)
                 .content("{\"categoryId\": \"unknown\"}"))
                 .andExpect(status().isBadRequest());
