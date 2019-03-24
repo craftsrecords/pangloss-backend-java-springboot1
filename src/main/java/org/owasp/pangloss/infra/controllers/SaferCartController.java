@@ -7,7 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.UUID;
 
-@Profile("safe")
+@Profile("mitigated")
 @RepositoryRestResource(collectionResourceRel = "carts", path = "carts", itemResourceRel = "cart")
 public interface SaferCartController extends CrudRepository<SaferCartEntity, UUID> {
 }

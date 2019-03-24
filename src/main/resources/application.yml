@@ -2,7 +2,7 @@ server:
   port: 1759
 spring:
   profiles:
-    active: safe, ssl
+    active: safer
   output:
     ansi.enabled: ALWAYS
   datasource:
@@ -12,12 +12,31 @@ spring:
       base-path: /api
 
 ---
+spring.profiles: safer
+spring:
+  profiles:
+    include: mitigated, ssl, hashedPasswords
+
+---
 
 spring:
   profiles: ssl
-
+# We should use Vault https://www.hashicorp.com/resources/how-to-use-vault-with-spring-applications
+# instead of using plain-text passwords, this is not demoed here. Vault can also provide the certificates on the fly.
 server:
   ssl:
     key-store-type: PKCS12
     key-store: classpath:keystore/localhost.p12
     key-store-password: pangloss
+
+---
+
+spring:
+  profiles: hashedPasswords
+  datasource:
+    data: classpath:data-hashedPasswords.sql
+
+---
+
+spring:
+  profiles: insecure

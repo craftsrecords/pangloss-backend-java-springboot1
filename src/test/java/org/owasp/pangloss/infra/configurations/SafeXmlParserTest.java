@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WithMockUser("poc-user")
-@ActiveProfiles("safe")
+@ActiveProfiles("mitigated")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public class SafeXmlParserTest {

@@ -12,7 +12,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@ActiveProfiles({"safe"})
+@ActiveProfiles({"mitigated", "hashedPasswords"})
 public class SaferApplicationTests extends PanglossApplicationTestsTemplate implements PanglossSecurityIntegrationTestContract {
 
     public SaferApplicationTests() {

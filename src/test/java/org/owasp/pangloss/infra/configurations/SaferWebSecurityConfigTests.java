@@ -24,7 +24,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@ActiveProfiles("safe")
+@ActiveProfiles("mitigated")
 public class SaferWebSecurityConfigTests {
 
     @Autowired

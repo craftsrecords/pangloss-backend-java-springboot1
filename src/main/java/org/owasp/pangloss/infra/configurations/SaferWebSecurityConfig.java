@@ -14,7 +14,7 @@ import java.net.UnknownHostException;
 
 import static org.springframework.security.web.csrf.CookieCsrfTokenRepository.withHttpOnlyFalse;
 
-@Profile("safe")
+@Profile("mitigated")
 @Configuration
 @EnableWebSecurity
 public class SaferWebSecurityConfig extends WebSecurityConfig {
