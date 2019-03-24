@@ -17,12 +17,11 @@ public class XMLParserConfig {
     @Profile("insecure")
     public XmlMapper insecureXmlMapper() {
         return new XmlMapper(XMLInputFactory.newFactory());
-
     }
 
     @Bean
-    @Profile("safe")
-    public XmlMapper safeXmlMapper() {
+    @Profile("mitigated")
+    public XmlMapper saferXmlMapper() {
         /*
          * This is a just an example on how to disable External Entities resolution no XML Parsers.
          * When using spring, we should rather use Jackson2ObjectMapperBuilder, instead of crafting manually
@@ -33,5 +32,4 @@ public class XMLParserConfig {
         xmlInputFactory.setProperty(SUPPORT_DTD, false);
         return new XmlMapper(xmlInputFactory);
     }
-
 }

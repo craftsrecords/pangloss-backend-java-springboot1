@@ -1,7 +1,7 @@
 package org.owasp.pangloss.infra.security.authentication.providers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,7 +13,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("safe")
+@Conditional(MitigatedWithoutHashedPasswords.class)
 /**
  * SQL Injection free implementation of database based authentication process using PreparedStatement.
  *

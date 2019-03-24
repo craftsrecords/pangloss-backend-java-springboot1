@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @RunWith(SpringRunner.class)
 @JdbcTest
-@ActiveProfiles({"safe"})
+@ActiveProfiles({"mitigated"})
 public class SQLInjectionSafeAuthenticationProviderTest extends AuthenticationProviderTestTemplate implements AuthenticationProviderTestContract {
 
     @Autowired
@@ -56,7 +56,6 @@ public class SQLInjectionSafeAuthenticationProviderTest extends AuthenticationPr
     public void should_supports_UsernamePasswordAuthenticationToken() {
         super.should_supports_UsernamePasswordAuthenticationToken();
     }
-
 
     @TestConfiguration
     @ComponentScan(includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {SQLInjectionSafeAuthenticationProvider.class}))
