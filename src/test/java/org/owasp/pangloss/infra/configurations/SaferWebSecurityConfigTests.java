@@ -7,12 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
 import java.util.List;
 
@@ -33,21 +30,12 @@ public class SaferWebSecurityConfigTests {
     @Test
     public void should_set_csrf_token() {
 
-        ResponseEntity<String> response = restTemplate.postForEntity("/api/login", loginRequest(), String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity("/api/csrf", String.class);
 
         List<String> cookie = response.getHeaders().get("Set-Cookie");
 
         assertThat(response.getStatusCode()).isEqualTo(OK);
         assertThat(cookie).anyMatch(cookieContent -> cookieContent.contains("XSRF-TOKEN"));
-    }
-
-    @Test
-    public void should_be_able_to_logout() {
-
-        ResponseEntity<String> response =
-                restTemplate.postForEntity("/api/logout", null, String.class);
-
-        assertThat(response.getStatusCode()).isEqualTo(OK);
     }
 
     @Test
@@ -79,17 +67,5 @@ public class SaferWebSecurityConfigTests {
         origin.setOrigin(originUrl);
 
         return new HttpEntity<>("", origin);
-    }
-
-    private HttpEntity<MultiValueMap<String, String>> loginRequest() {
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("username", "user");
-        map.add("password", "pwd");
-
-        return new HttpEntity<>(map, headers);
     }
 }

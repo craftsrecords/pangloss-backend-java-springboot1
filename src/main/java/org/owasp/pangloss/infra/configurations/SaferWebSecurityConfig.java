@@ -37,8 +37,7 @@ public class SaferWebSecurityConfig extends WebSecurityConfig {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
-                .csrfTokenRepository(withHttpOnlyFalse())
-                .ignoringAntMatchers("/api/login", "/api/logout");
+                .csrfTokenRepository(withHttpOnlyFalse());
 
         super.configure(http);
     }
