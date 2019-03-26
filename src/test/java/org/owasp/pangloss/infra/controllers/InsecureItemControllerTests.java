@@ -7,24 +7,28 @@ import org.owasp.pangloss.infra.configurations.WebConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.context.annotation.ComponentScan.Filter;
 import static org.springframework.context.annotation.FilterType.ASSIGNABLE_TYPE;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.annotation.DirtiesContext.MethodMode.AFTER_METHOD;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(
-        value = ItemController.class,
+        value = InsecureItemController.class,
         includeFilters = @Filter(type = ASSIGNABLE_TYPE, value = Items.class),
         excludeFilters = @Filter(type = ASSIGNABLE_TYPE, value = WebConfig.class))
+@ActiveProfiles("insecure")
 @WithMockUser(username = "poc-user")
-public class ItemControllerTests {
+public class InsecureItemControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
@@ -35,7 +39,6 @@ public class ItemControllerTests {
                 .contentType(APPLICATION_JSON)
                 .content("{ \"categoryId\": \"books\"}"))
                 .andExpect(status().isOk())
-                .andDo(print())
                 .andExpect(content().json("[\n" +
                         "    {\n" +
                         "      \"id\": \"arbitraryforecasts\",\n" +
@@ -61,5 +64,19 @@ public class ItemControllerTests {
                 .content("{\"categoryId\": \"unknown\"}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(status().reason("No items found for category unknown"));
+    }
+
+    @Test
+    @DirtiesContext(methodMode = AFTER_METHOD)
+    public void should_delete_an_existing_item() throws Exception {
+        mockMvc.perform(delete("/api/items/exitingvim"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is("exitingvim")));
+    }
+
+    @Test
+    public void should_throw_NotFound_when_the_id_is_unknown() throws Exception {
+        mockMvc.perform(delete("/api/items/unknown"))
+                .andExpect(status().isNotFound());
     }
 }

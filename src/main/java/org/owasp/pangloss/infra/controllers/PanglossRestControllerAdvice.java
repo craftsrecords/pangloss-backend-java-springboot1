@@ -2,9 +2,11 @@ package org.owasp.pangloss.infra.controllers;
 
 import com.ctc.wstx.exc.WstxParsingException;
 import org.owasp.pangloss.domain.item.NoItemsFoundForThisCategoryException;
+import org.owasp.pangloss.domain.item.UnknownItemIdException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletResponse;
@@ -12,9 +14,15 @@ import javax.validation.ConstraintViolationException;
 import java.io.IOException;
 
 import static javax.servlet.http.HttpServletResponse.*;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestControllerAdvice
 public class PanglossRestControllerAdvice {
+
+    @ExceptionHandler(UnknownItemIdException.class)
+    @ResponseStatus(NOT_FOUND)
+    public void handleUnknownItemIdException() {
+    }
 
     @ExceptionHandler(NoItemsFoundForThisCategoryException.class)
     public void handleNoItemsFoundForThisCategoryException(HttpServletResponse response, NoItemsFoundForThisCategoryException e) throws IOException {

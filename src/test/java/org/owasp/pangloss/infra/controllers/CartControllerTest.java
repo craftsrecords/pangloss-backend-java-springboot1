@@ -17,7 +17,6 @@ import static java.lang.String.format;
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -51,17 +50,6 @@ public class CartControllerTest {
                 .andExpect(jsonPath("$.items[0].id", is("test")))
                 .andExpect(jsonPath("$.items[0].name", is("my item")))
                 .andExpect(jsonPath("$.items[0].price", is("100")));
-    }
-
-    @Test
-    public void should_find_cart_related_to_the_user() throws Exception {
-        SaferCartEntity cartEntity = createCart();
-        mockMvc.perform(
-                get("/api/profile/cart")
-                        .with(csrf())
-                        .contentType("application/json")
-                        .accept(APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.id", is(cartEntity.getId().toString())));
     }
 
     private SaferCartEntity createCart() {

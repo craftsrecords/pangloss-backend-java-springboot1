@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.owasp.pangloss.domain.item.Item;
 import org.owasp.pangloss.domain.item.NoItemsFoundForThisCategoryException;
+import org.owasp.pangloss.domain.item.UnknownItemIdException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -42,6 +43,27 @@ public class ItemsFileRepositoryTest {
         assertThatThrownBy(() -> itemsFileRepository.getAllItemsOfCategory("unknown"))
                 .isInstanceOf(NoItemsFoundForThisCategoryException.class)
                 .hasMessage("No items found for category unknown");
+    }
+
+    @Test
+    public void should_delete_an_item() {
+
+        String itemIdToDelete = "arbitraryforecasts";
+
+        Item item = itemsFileRepository.delete(itemIdToDelete);
+
+        Set<Item> books = itemsFileRepository.getAllItemsOfCategory("books");
+        assertThat(item).isNotNull();
+        assertThat(item.getId()).isEqualTo(itemIdToDelete);
+        assertThat(books).doesNotContain(item);
+    }
+
+    @Test
+    public void should_throw_UnknownItemIdException_when_deleting_an_unknown_id() {
+
+        assertThatThrownBy(() -> itemsFileRepository.delete("unknown"))
+                .isInstanceOf(UnknownItemIdException.class)
+                .hasMessage("No item found with id unknown");
     }
 
     private List<Item> expectedItems() {
