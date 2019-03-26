@@ -6,6 +6,5 @@ create table users (
 
 create table authorities (
   username varchar(256),
-  authority varchar(256),
-  enabled tinyint  default 1 not null
+  authority varchar(256)
 );

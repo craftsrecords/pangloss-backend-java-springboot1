@@ -3,6 +3,7 @@ package org.owasp.pangloss.infra.configurations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.cors.CorsConfiguration;
@@ -17,6 +18,7 @@ import static org.springframework.security.web.csrf.CookieCsrfTokenRepository.wi
 @Profile("mitigated")
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SaferWebSecurityConfig extends WebSecurityConfig {
 
     @Bean

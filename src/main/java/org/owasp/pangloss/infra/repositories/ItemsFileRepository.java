@@ -11,12 +11,15 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.owasp.pangloss.domain.item.Item;
 import org.owasp.pangloss.domain.item.Items;
 import org.owasp.pangloss.domain.item.NoItemsFoundForThisCategoryException;
+import org.owasp.pangloss.domain.item.UnknownItemIdException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,6 +33,7 @@ public class ItemsFileRepository implements Items {
 
     @Value("classpath:data/itemsByCategory.json")
     private Resource itemsByCategoryFile;
+    private Map<String, Set<Item>> itemsByCategory;
 
     public ItemsFileRepository() {
         objectMapper = createObjectMapper();
@@ -37,20 +41,41 @@ public class ItemsFileRepository implements Items {
 
     @Override
     public Set<Item> getAllItemsOfCategory(String categoryId) {
-        Map<String, Set<Item>> itemsByCategory = readItemsByCategory();
         return ofNullable(itemsByCategory.get(categoryId))
                 .orElseThrow(() -> new NoItemsFoundForThisCategoryException(categoryId));
     }
 
-    private Map<String, Set<Item>> readItemsByCategory() {
-        Map<String, Set<Item>> itemsByCategory;
+    @Override
+    public Item delete(String id) {
+        Item itemToDelete = retrieveItemToDelete(id);
+        String categoryOfTheItem = getCategoryOfTheItem(itemToDelete);
+        itemsByCategory.get(categoryOfTheItem).remove(itemToDelete);
+        return itemToDelete;
+    }
+
+    private String getCategoryOfTheItem(Item itemToDelete) {
+        return itemsByCategory.entrySet().stream()
+                .filter(entry -> entry.getValue().contains(itemToDelete))
+                .map(Map.Entry::getKey)
+                .findFirst().get();
+    }
+
+    private Item retrieveItemToDelete(String id) {
+        return itemsByCategory.values().stream()
+                .flatMap(Collection::stream)
+                .filter(item -> item.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new UnknownItemIdException(id));
+    }
+
+    @PostConstruct
+    protected void readItemsByCategory() {
         try {
             itemsByCategory = objectMapper.readValue(itemsByCategoryFile.getInputStream(), new TypeReference<Map<String, Set<Item>>>() {
             });
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return itemsByCategory;
     }
 
     private ObjectMapper createObjectMapper() {
