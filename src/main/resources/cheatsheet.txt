@@ -1,0 +1,41 @@
+//// Incognito mode
+
+* US#1
+
+** Authenticate
+
+PanglossAuthenticationProvider:
+
+
+jdbcTemplate.queryForObject("Select * from users where username='" + name + "' and password='" + password + "'",
+                        BeanPropertyRowMapper.newInstance(DBUser.class));
+
+** Deactivate csrf
+
+WebSecurityConfig#configure:
+
+http.csrf().disable();
+
+** Open CORS
+
+WebSecurityConfig:
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
+
+
+mitigated:
+
+jdbcTemplate.queryForObject("Select * from users where username=? and password=?",
+                        BeanPropertyRowMapper.newInstance(DBUser.class),
+                        name, credentials);
+*

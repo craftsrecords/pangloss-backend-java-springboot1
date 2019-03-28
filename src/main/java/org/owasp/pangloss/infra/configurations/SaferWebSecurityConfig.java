@@ -19,7 +19,7 @@ import static org.springframework.security.web.csrf.CookieCsrfTokenRepository.wi
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SaferWebSecurityConfig extends WebSecurityConfig {
+public class SaferWebSecurityConfig {
 
     @Bean
     public CorsFilter corsFilter() throws UnknownHostException {
@@ -36,11 +36,8 @@ public class SaferWebSecurityConfig extends WebSecurityConfig {
         return new CorsFilter(source);
     }
 
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
                 .csrfTokenRepository(withHttpOnlyFalse());
-
-        super.configure(http);
     }
 }

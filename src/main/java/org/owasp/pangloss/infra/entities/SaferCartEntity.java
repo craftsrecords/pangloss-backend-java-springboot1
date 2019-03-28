@@ -11,7 +11,7 @@ import static java.util.Collections.emptyList;
 import static javax.persistence.FetchType.EAGER;
 
 @Entity(name = "cart")
-public class SaferCartEntity extends CartEntity {
+public class SaferCartEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,7 +51,6 @@ public class SaferCartEntity extends CartEntity {
         this.address = address;
     }
 
-    @Override
     public String getOwner() {
         return owner;
     }

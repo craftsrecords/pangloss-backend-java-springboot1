@@ -3,19 +3,17 @@ package org.owasp.pangloss.infra.controllers;
 import org.owasp.pangloss.domain.item.Item;
 import org.owasp.pangloss.domain.item.Items;
 import org.owasp.pangloss.domain.item.ItemsSelector;
-import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
 @RestController
 @RequestMapping("api/items")
-@Profile({"poc", "insecure"})
-public class InsecureItemController {
+public class ItemController {
 
     private Items items;
 
-    public InsecureItemController(Items items) {
+    public ItemController(Items items) {
         this.items = items;
     }
 
