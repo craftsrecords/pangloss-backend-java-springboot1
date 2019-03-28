@@ -22,7 +22,7 @@ public class ItemController {
         return items.getAllItemsOfCategory(itemsSelector.getCategoryId());
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") //Fixme: remove it
     public Item delete(@PathVariable String id) {
         return items.delete(id);
     }

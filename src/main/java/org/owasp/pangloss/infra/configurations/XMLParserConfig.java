@@ -12,5 +12,5 @@ public class XMLParserConfig {
     @Bean
     public XmlMapper xmlMapper() {
         return new XmlMapper(XMLInputFactory.newFactory());
-    }
+    }//Fixme: remove it
 }

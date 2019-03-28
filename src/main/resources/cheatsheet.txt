@@ -32,6 +32,37 @@ WebSecurityConfig:
         return new CorsFilter(source);
     }
 
+* US#2:
+
+CartEntity:
+
+@Column(length = 5000)
+private String address = "";
+
++ getter & setter
+
+* US#3
+
+XMLParserConfig:
+    @Bean
+    public XmlMapper xmlMapper() {
+        return new XmlMapper(XMLInputFactory.newFactory());
+    }
+
+* US#4
+
+ItemController:
+    @DeleteMapping("/{id}")
+    public Item delete(@PathVariable String id) {
+        return items.delete(id);
+    }
+
+* US#5
+
+application.yml
+
+snippet => accesslog
+
 
 mitigated:
 

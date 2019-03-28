@@ -1,5 +1,6 @@
 server:
   port: 1759
+  # Fixme: remove it
   tomcat:
     accesslog:
       enabled: true

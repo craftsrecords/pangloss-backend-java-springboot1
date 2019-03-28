@@ -23,7 +23,7 @@ public class CartEntity {
     private List<ItemEntity> items = emptyList();
 
     @Column(length = 5000)
-    private String address = "";
+    private String address = "";//Fixme: remove it
 
     public UUID getId() {
         return id;
@@ -41,11 +41,11 @@ public class CartEntity {
         this.items = items;
     }
 
-    public String getAddress() {
+    public String getAddress() { //Fixme: remove it
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(String address) { //Fixme: remove it
         this.address = address;
     }
 
