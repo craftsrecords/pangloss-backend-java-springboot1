@@ -17,6 +17,12 @@ spring:
   profiles:
     include: mitigated, ssl, hashedPasswords
 
+server:
+  tomcat:
+    accesslog:
+      enabled: true
+    basedir: target/logs
+
 ---
 
 spring:
@@ -40,3 +46,18 @@ spring:
 
 spring:
   profiles: insecure
+
+server:
+  tomcat:
+    accesslog:
+      pattern: "%h %l %t \"%r\" %s %b %D"
+
+---
+
+spring:
+  profiles: mitigated
+
+server:
+  tomcat:
+    accesslog:
+      pattern: "%h %l %t userId: %{userId}s \"%r\" %s %b %D"
