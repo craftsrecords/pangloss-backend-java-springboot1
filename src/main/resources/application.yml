@@ -1,5 +1,10 @@
 server:
   port: 1759
+  tomcat:
+    accesslog:
+      enabled: true
+    basedir: target/logs
+
 spring:
   profiles:
     active: safer
@@ -16,12 +21,6 @@ spring.profiles: safer
 spring:
   profiles:
     include: mitigated, ssl, hashedPasswords
-
-server:
-  tomcat:
-    accesslog:
-      enabled: true
-    basedir: target/logs
 
 ---
 
