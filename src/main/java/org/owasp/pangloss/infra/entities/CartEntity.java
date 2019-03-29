@@ -1,6 +1,7 @@
 package org.owasp.pangloss.infra.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,6 +23,7 @@ public class CartEntity {
     @ElementCollection(fetch = EAGER)
     private List<ItemEntity> items = emptyList();
 
+    @SafeHtml
     @Column(length = 5000)
     private String address = "";//Fixme: remove it
 

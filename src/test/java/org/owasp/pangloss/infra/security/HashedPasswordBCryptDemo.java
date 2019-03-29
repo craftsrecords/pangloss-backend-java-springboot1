@@ -9,7 +9,7 @@ import static java.util.stream.IntStream.range;
 public class HashedPasswordBCryptDemo {
 
     public static void main(String[] args) {
-        String password = "pwd";
+        String password = "admin";
 
         PasswordEncoder encoder = new BCryptPasswordEncoder();
 

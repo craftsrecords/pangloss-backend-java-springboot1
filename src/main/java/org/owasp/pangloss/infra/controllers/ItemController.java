@@ -3,6 +3,7 @@ package org.owasp.pangloss.infra.controllers;
 import org.owasp.pangloss.domain.item.Item;
 import org.owasp.pangloss.domain.item.Items;
 import org.owasp.pangloss.domain.item.ItemsSelector;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -23,6 +24,7 @@ public class ItemController {
     }
 
     @DeleteMapping("/{id}") //Fixme: remove it
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Item delete(@PathVariable String id) {
         return items.delete(id);
     }

@@ -1,6 +1,5 @@
 package org.owasp.pangloss.infra.filters;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +11,6 @@ import java.io.IOException;
 
 @Component
 @Order(1)
-@Profile("mitigated")
 public class UserIdLogAppender implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -21,6 +19,7 @@ public class UserIdLogAppender implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        //Fixme: remove it
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
@@ -29,6 +28,7 @@ public class UserIdLogAppender implements Filter {
             int userId = authentication.getName().hashCode();
             request.getSession().setAttribute("userId", userId);
         }
+        //until here
         filterChain.doFilter(request, servletResponse);
     }
 

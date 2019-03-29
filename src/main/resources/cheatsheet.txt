@@ -1,4 +1,4 @@
-//// Incognito mode
+//// User Stories
 
 * US#1
 
@@ -63,10 +63,119 @@ application.yml
 
 snippet => accesslog
 
+//// Attack
 
-mitigated:
+* HTTP - A3-Sensitive Data Exposure - A2 - Broken Autentication
+
+** Attack
+Use Fiddler
+
+** Mitigation
+Activate ssl in application.yml
+
+snippet => ssl
+restart the front: ng s -c ssl
+
+* SQL Injection
+
+** Attack
+In the login page as a password:
+' OR '1'='1' LIMIT 1 --
+
+** Mitigation
 
 jdbcTemplate.queryForObject("Select * from users where username=? and password=?",
                         BeanPropertyRowMapper.newInstance(DBUser.class),
                         name, credentials);
-*
+
+* XXE
+
+** Attack
+Postman XXE Items
+--> Clear Passwords stored in database
+
+** Mitigation
+
+        XMLInputFactory xmlInputFactory = XMLInputFactory.newFactory();
+        xmlInputFactory.setProperty(IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+        xmlInputFactory.setProperty(SUPPORT_DTD, false);
+        return new XmlMapper(xmlInputFactory);
+
+* Clear Password
+Slides + HashedPasswordBCryptDemo
+
+** Mitigation
+
+WebSecurityConfig:
+snippet => hashpwd
+
+But clear password in application.yml for the keystore!!!
+=> slide on vault
+
+/// No longer use Icognito mode and log into Pangloss
+
+* Broken access control
+
+** Attack
+Look for the items endpoint in chrome
+go to postman and perform a delete
+
+** Mitigation
+ItemController#delete
+@PreAuthorize("hasAuthority('ADMIN')")
+
+Retry the attack in postman
+
+* Insufficient Logging
+
+Go to the access log and show we cannot see who has made what? Regular user, admin, rogue etc...
+
+** Mitigation
+
+UserIdLogAppender:
+snippet => appendid
+
+application.yml
+
+* CSRF - CORS
+
+** Attack
+Slide click on discount email, show that the request was emitted with the chrome tools and show the page source
+
+** Mitigation
+WebSecurityConfig:
+snippet => crossorig in place of allowedOrigins
+
+* CSRF - external infected trusted app
+
+** Attack
+http://10.0.75.1:9571/
+
+** Mitigation
+WebSecurityConfig#configure:
+
+http.csrf().csrfTokenRepository(withHttpOnlyFalse());
+
+show CsrfController for the cors?
+
+Go back and log to Pangloss, show the token is exchanged and stored inside the cookie.
+Replay the attack http://10.0.75.1:9571/
+
+* CSRF + XSS
+
+** Attack
+Add first <script>alert('0')</script> inside the address field.
+Then the content of xsrf-xss.html
+
+** Mitigation
+    @SafeHtml on the address of the CartEntity
+then retry the attack and show the logs
+
+* JSON Injection
+
+** Attack
+
+Go to Postman and play RCE Cart
+
+** Mitigation
+Update Spring Boot to 1.5.9
