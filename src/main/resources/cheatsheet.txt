@@ -176,6 +176,7 @@ then retry the attack and show the logs
 ** Attack
 
 Go to Postman and play RCE Cart
+Show dependency track
 
 ** Mitigation
 Update Spring Boot to 1.5.9

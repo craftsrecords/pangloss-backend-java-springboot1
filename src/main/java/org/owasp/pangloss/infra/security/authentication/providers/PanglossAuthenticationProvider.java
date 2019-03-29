@@ -34,8 +34,8 @@ public class PanglossAuthenticationProvider implements AuthenticationProvider {
          *   password varchar(256),
          * );
          */
-        return jdbcTemplate//FIXME: empty the query
-                .queryForObject("Select * from users where username='" + name + "' and password='" + password + "'", BeanPropertyRowMapper.newInstance(DBUser.class));
+        return jdbcTemplate
+                .queryForObject("", BeanPropertyRowMapper.newInstance(DBUser.class));
     }
 
     @Override
