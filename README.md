@@ -1,3 +1,9 @@
+## DISCLAIMER
+
+This application has been made to demonstrate security flaws and possible mitigation.
+The safer mode is not fully secured and not suitable for a production usage.
+Copy & Paste code at your own risk.
+
 # OWASP Pangloss
 
 OWASP Pangloss is a [OWASP TOP10 2017](https://www.owasp.org/index.php/Top_10-2017_Top_10) sandbox made to help people learn the common security flaws of applications.
@@ -26,3 +32,5 @@ java -jar target/pangloss-backend-java-springboot1-0.0.1-SNAPSHOT.jar --spring.p
 The application will be bound to localhost:1759.
 
 **Note:** insecure is not compatible with mitigated and safer.
+
+You should run as well run the [frontend part](https://gitlab.com/crafts-records/pangloss/pangloss-frontend-angular).
