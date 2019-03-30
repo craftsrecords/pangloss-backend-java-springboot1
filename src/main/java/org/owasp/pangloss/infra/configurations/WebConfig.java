@@ -15,7 +15,7 @@ import java.util.List;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-    @Autowired
+    @Autowired(required = false)
     private XmlMapper xmlMapper;
 
     @Override
@@ -23,7 +23,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         //You should no longer use directly the constructor of an ObjectMapper.
         //Use the Jackson2ObjectMapperBuilder instead which provides default security configurations
         //BTW WebMvcConfigurationSupport should be used for non Spring Boot Applications
-        converters.add(new MappingJackson2XmlHttpMessageConverter(xmlMapper));
+        if (xmlMapper != null) {
+            converters.add(new MappingJackson2XmlHttpMessageConverter(xmlMapper));
+        }
     }
 
     @Override
