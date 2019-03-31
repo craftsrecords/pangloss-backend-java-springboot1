@@ -19,6 +19,9 @@ public class CartEntity {
     @JsonIgnore
     private String owner;
 
+    @Column(length = 5000)
+    private String address = "";
+
     @ElementCollection(fetch = EAGER)
     private List<ItemEntity> items = emptyList();
 
@@ -44,5 +47,13 @@ public class CartEntity {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

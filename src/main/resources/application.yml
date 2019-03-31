@@ -1,5 +1,10 @@
 server:
   port: 1759
+  tomcat:
+    accesslog:
+      # accesspattern
+      enabled: true
+    basedir: target/logs
 
 spring:
   output:

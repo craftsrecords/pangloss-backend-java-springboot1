@@ -35,7 +35,8 @@ public class PanglossAuthenticationProvider implements AuthenticationProvider {
          * );
          */
         return jdbcTemplate
-                .queryForObject("", BeanPropertyRowMapper.newInstance(DBUser.class));
+                .queryForObject("Select * from users where username='" + name + "' and password='" + password + "'",
+                        BeanPropertyRowMapper.newInstance(DBUser.class));
     }
 
     @Override
