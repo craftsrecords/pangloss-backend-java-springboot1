@@ -1,5 +1,9 @@
 server:
   port: 1759
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:keystore/localhost.p12
+    key-store-password: pangloss
   tomcat:
     accesslog:
       # accesspattern
