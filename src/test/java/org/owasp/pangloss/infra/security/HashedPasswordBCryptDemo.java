@@ -26,5 +26,8 @@ public class HashedPasswordBCryptDemo {
                     System.out.println();
                 }
         );
+
+        System.out.println(format("insert into users (username, password) values ('admin', '%s');", encoder.encode("admin")));
+        System.out.println(format("insert into users (username, password) values ('pwd', '%s');", encoder.encode("pwd")));
     }
 }
